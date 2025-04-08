@@ -282,9 +282,9 @@ eff <- rnorm(mean = 0.6, sd = 0.1, n = 20)
 # use map from purrr to run model for all values of eff
 # notice how map adds the one parameter that is missing from the input list
 
-site2 <- eff %>% map(~ solarpv(area = 0.1, 
+site2 <- eff %>% map(~ solarpv(area = 0.61, 
   solar = sierraczosolar, clr = "green", 
-  eunit = "W", g = FALSE, etype = "direct", eff = .x))
+  eunit = "W", g = TRUE, etype = "indirect", eff = .x))
 
 head(site2)
 ```

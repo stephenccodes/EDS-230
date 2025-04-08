@@ -1,0 +1,62 @@
+---
+title: "Discussion1"
+author: "Stephen Carroll"
+date: "2025-04-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+$$
+P = E + Q - \Delta S
+$$
+
+```{r}
+streamflow = function (precip, ET, ds) {  # Set parameters OUTSIDE function
+  
+  Q = precip - ET + ds
+  
+  # if (Q <0) {return(print("Q is less than 0"))} # Don't allow functino to return string
+  #  (Q<0) {return(0)} # or...
+  
+  if (Q<0) {warning(print("Q is negative!"))}
+  
+  # print(Q) # avoid print in functions. doesn't tell the comp to do anything.
+  return(Q)
+}
+
+source("../R/streamflow.R")
+```
+
+```{r}
+df$Q = streamflow(df$P, df$E, df$S)
+
+table(ifelse(df$Q < 0, TRUE, FALSE))
+
+df %>%  ggplot() + geom_point(aes(x = day, y = Q)) + geom_density(x = Q)
+
+dplot = ggplot(pivot_df) +
+  geom_density(aes(x = values)) +
+  facet_wrap(~variable, scale = 'free', ncol = 1)
+ggarrange(pplots, dplot, nvol = 2)
+view(df)
+```
+
+
+File Paths
+
+```{r}
+setwd("../wk2/R")
+getwd
+```
+
+```{r}
+# Another way
+
+root 
+filepath
+
+```
+
